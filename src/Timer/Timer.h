@@ -4,6 +4,7 @@
 const int TARGET_FPS = 60;
 const float TARGET_DELTATIME = 1.5f;
 
+// A global timer used to provide a consistant FPS basing on the computer
 class Timer{
     public:
         void Tick();

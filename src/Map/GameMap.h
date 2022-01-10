@@ -4,6 +4,7 @@
 #include <vector>
 #include "Layer.h"
 
+// GameMap class represets the map for the game which includes all layers in a Map
 class GameMap {
 
     public:

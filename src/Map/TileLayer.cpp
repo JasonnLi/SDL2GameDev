@@ -23,6 +23,9 @@ void TileLayer::Render(){
                 if(m_Tilesets.size() > 1){
                     for(unsigned int k = 1; k < m_Tilesets.size(); k++){
                         if(tileID > m_Tilesets[k].FirstID && tileID < m_Tilesets[k].LastID){
+                            // algorithm used to calculate the correct tile id inside the current tileset
+                            // i.e found the tile in the k tileset and the id is tile Id
+                            // m_Tilesets[k].LastID = m_Tilesets[k].FirstID + m_Tilesets[k].TileCount
                             tileID = tileID + m_Tilesets[k].TileCount - m_Tilesets[k].LastID;
                             index = k;
                             break;
@@ -31,7 +34,10 @@ void TileLayer::Render(){
                 }
 
                 Tileset ts = m_Tilesets[index];
+                // if tile id < ts.ColCount, int tileID/ts.ColCount = 0, thus, tile row is 0.
+                // if tile id > ts.Colcount, e.g. id = 16, ColCount = 13, then tile row is 1.
                 int tileRow = tileID/ts.ColCount;
+                // minus 1 as tile id start from 0 in the tileset
                 int tileCol = tileID - tileRow*ts.ColCount-1;
 
                 // if this tile is on the las column

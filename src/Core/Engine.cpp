@@ -39,14 +39,16 @@ bool Engine::Init(){
 
     m_LevelMap = MapParser::GetInstance()->GetMap("level1");
 
-    TextureManager::GetInstance()->Load("player", "/Idle.png");
+    TextureManager::GetInstance()->Load("player_idle", "/Idle.png");
     TextureManager::GetInstance()->Load("player_run", "/Run.png");
     TextureManager::GetInstance()->Load("player_jump", "/Jump.png");
+    TextureManager::GetInstance()->Load("player_fall", "/Fall.png");
+    TextureManager::GetInstance()->Load("player_crouch", "/Crouch.png");
+    TextureManager::GetInstance()->Load("player_attack", "/Attack.png");
 
     TextureManager::GetInstance()->Load("bg", "/images/bg.png");
 
     player = new Warrior(new Properties("player", 100, 200, 136, 96));
-
 
     Camera::GetInstance()->SetTarget(player->GetOrigin());
     return m_IsRunning = true;
@@ -66,8 +68,8 @@ void Engine::Render(){
 void Engine::Update(){
     float dt = Timer::GetInstance()->GetDeltaTime();
     player->Update(dt);
-    m_LevelMap->Update();
     Camera::GetInstance()->Update(dt);
+    m_LevelMap->Update();
 }
 
 void Engine::Events(){

@@ -9,6 +9,7 @@
 class CollisionHandler{
 
     public:
+        // Check if there is collision happening
         bool MapCollision(SDL_Rect a);
         bool CheckCollision(SDL_Rect a, SDL_Rect b);
 
@@ -16,6 +17,7 @@ class CollisionHandler{
 
     private:
         CollisionHandler();
+        // Contain the map matrix that has each tile id
         TileMap m_CollisionTilemap;
         TileLayer* m_CollisionLayer;
         static CollisionHandler* s_Instance;

@@ -13,9 +13,12 @@ struct Tileset{
     std::string Name, Source;
 };
 
+// Contain a list of different tilesets
 using TilesetsList = std::vector<Tileset> ;
+// A vector matrix used to represent the tile map, which contains each tile id
 using TileMap = std::vector<std::vector<int> >;
 
+// A TileLayer is one of the layer inside the game map
 class TileLayer : public Layer{
 
     public:

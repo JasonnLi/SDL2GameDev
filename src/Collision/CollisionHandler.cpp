@@ -4,6 +4,7 @@
 CollisionHandler* CollisionHandler::s_Instance = nullptr;
 
 CollisionHandler::CollisionHandler(){
+    // Conver layer to tileLayer
     m_CollisionLayer = (TileLayer*)Engine::GetInstance()->GetMap()->GetLayers().front();
     m_CollisionTilemap = m_CollisionLayer->GetTileMap();
 }
@@ -31,8 +32,10 @@ bool CollisionHandler::MapCollision(SDL_Rect a){
     if(top_tile < 0) top_tile = 0;
     if(bottom_tile > RowCount) bottom_tile = RowCount;
 
+    // It is checking if there is collision between the rect a and the ground
     for(int i = left_tile; i <= right_tile; ++i){
         for(int j = top_tile; j <= bottom_tile; ++j){
+            // m_CollisionTilemap[j][i] represents tile id, if tileId = 0, it means there is no tile in the map
             if(m_CollisionTilemap[j][i] > 0){
                 return true;
             }

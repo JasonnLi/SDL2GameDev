@@ -3,6 +3,7 @@
 
 #include <SDL2/SDL.h>
 
+// Box to know if the it is hitting anything
 class Collider {
 
     public:
@@ -20,6 +21,7 @@ class Collider {
 
     private:
         SDL_Rect m_Box;
+        // Buffer is to used to make sure the box size is larger than the player
         SDL_Rect m_Buffer;
 };
 
