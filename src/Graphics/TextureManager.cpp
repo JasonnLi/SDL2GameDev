@@ -48,6 +48,7 @@ void TextureManager::DrawTile(std::string tilesetID, int tileSize, int x, int y,
     SDL_RenderCopyEx(Engine::GetInstance()->GetRenderer(), m_TextureMap[tilesetID], &srcRect, &dstRect, 0, 0, flip);
 }
 
+// Parse all defined textures in the the xml file
 bool TextureManager::ParseTextures(std::string source){
     source = "../../assets" + source;
     TiXmlDocument xml;

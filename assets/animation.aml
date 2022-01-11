@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<animations>
+    <sequence id="boss_idle" frameCount="6" speed="100" width="460" height="352">
+        <frame textureID ="boss_idle1"/>
+        <frame textureID ="boss_idle2"/>
+        <frame textureID ="boss_idle3"/>
+        <frame textureID ="boss_idle4"/>
+        <frame textureID ="boss_idle5"/>
+        <frame textureID ="boss_idle6"/>
+    </sequence> 
+
+    <sequence id="boss_attack" frameCount="6" speed="150" width="528" height="372">
+        <frame textureID ="boss_attack1"/>
+        <frame textureID ="boss_attack2"/>
+        <frame textureID ="boss_attack3"/>
+        <frame textureID ="boss_attack4"/>
+        <frame textureID ="boss_attack5"/>
+        <frame textureID ="boss_attack6"/>
+    </sequence>  
+
+    <sequence id="boss_appear" frameCount="15" speed="150" width="456" height="348">
+        <frame textureID ="boss_appear1"/>
+        <frame textureID ="boss_appear2"/>
+        <frame textureID ="boss_appear3"/>
+        <frame textureID ="boss_appear4"/>
+        <frame textureID ="boss_appear5"/>
+        <frame textureID ="boss_appear6"/>
+        <frame textureID ="boss_appear7"/>
+        <frame textureID ="boss_appear8"/>
+        <frame textureID ="boss_appear9"/>
+        <frame textureID ="boss_appear10"/>
+        <frame textureID ="boss_appear11"/>
+        <frame textureID ="boss_appear12"/>
+        <frame textureID ="boss_appear13"/>
+        <frame textureID ="boss_appear14"/>
+        <frame textureID ="boss_appear15"/>
+    </sequence>
+
+    <sequence id="boss_die" frameCount="7" speed="150" width="456" height="504">
+        <frame textureID ="boss_die1"/>
+        <frame textureID ="boss_die2"/>
+        <frame textureID ="boss_die3"/>
+        <frame textureID ="boss_die4"/>
+        <frame textureID ="boss_die5"/>
+        <frame textureID ="boss_die6"/>
+        <frame textureID ="boss_die7"/>
+    </sequence>
+</animations>

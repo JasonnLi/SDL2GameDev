@@ -2,7 +2,7 @@
 #define WARRIOR_H
 
 #include "Character.h"
-#include "../Animation/Animation.h"
+#include "../Animation/SpriteAnimation.h"
 #include "../Physics/RigidBody.h"
 #include "../Physics/Collider.h"
 #include "../Collision/CollisionHandler.h"
@@ -38,7 +38,7 @@ class Warrior: public Character{
         float m_AttackTime;
 
         Collider* m_Collider;
-        Animation* m_Animation;
+        SpriteAnimation* m_Animation;
         RigidBody* m_RigidBody;
         // Make sure the player get back to the last safe position when they hit the wall (have collision)
         Vector2D m_LastSafePosition;

@@ -18,12 +18,12 @@ Warrior::Warrior(Properties* props): Character(props){
     m_RigidBody = new RigidBody();
     m_RigidBody->SetGravity(6.5f);
 
-    m_Animation = new Animation();
+    m_Animation = new SpriteAnimation();
     // m_Animation->SetProps(m_TextureID, 1, 6, 100);
 }
 
 void Warrior::Draw(){
-    m_Animation->Draw(m_Transform->X, m_Transform->Y, m_Width, m_Height, m_Flip);
+    m_Animation->Draw(m_Transform->X, m_Transform->Y, m_Width, m_Height, 1, 1, m_Flip);
     // get the camera target position (which is the warrior)
     // draw a box wrapping the player and make it follow the camera moving. It is for debug purpose (adjusting player collsion space)
     Vector2D cam = Camera::GetInstance()->GetPosition();
@@ -125,7 +125,7 @@ void Warrior::Update(float dt){
     m_Origin->Y = m_Transform->Y + m_Height/2;
 
     AnimationState();
-    m_Animation->Update();
+    m_Animation->Update(dt);
 }
 
 void Warrior::AnimationState(){
