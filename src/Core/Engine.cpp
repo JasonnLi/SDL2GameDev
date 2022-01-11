@@ -39,14 +39,7 @@ bool Engine::Init(){
 
     m_LevelMap = MapParser::GetInstance()->GetMap("level1");
 
-    TextureManager::GetInstance()->Load("player_idle", "/Idle.png");
-    TextureManager::GetInstance()->Load("player_run", "/Run.png");
-    TextureManager::GetInstance()->Load("player_jump", "/Jump.png");
-    TextureManager::GetInstance()->Load("player_fall", "/Fall.png");
-    TextureManager::GetInstance()->Load("player_crouch", "/Crouch.png");
-    TextureManager::GetInstance()->Load("player_attack", "/Attack.png");
-
-    TextureManager::GetInstance()->Load("bg", "/images/bg.png");
+    TextureManager::GetInstance()->ParseTextures("/textures.tml");
 
     player = new Warrior(new Properties("player", 100, 200, 136, 96));
 
@@ -58,7 +51,7 @@ void Engine::Render(){
     SDL_SetRenderDrawColor(m_Renderer, 124, 218, 254, 255);
     SDL_RenderClear(m_Renderer);
 
-    TextureManager::GetInstance()->Draw("bg", 0, 0, 2100, 1050);
+    TextureManager::GetInstance()->Draw("bg", 0, 0, 2100, 1050, 1, 1, 0.4);
     m_LevelMap->Render();
 
     player->Draw();

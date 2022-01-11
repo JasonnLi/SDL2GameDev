@@ -1,6 +1,7 @@
 #include "../Graphics/TextureManager.h"
 #include "../Core/Engine.h"
 #include "../Camera/Camera.h"
+#include "../Vendor/TinyXML/tinyxml.h"
 
 TextureManager* TextureManager::s_Instance = nullptr;
 
@@ -22,10 +23,12 @@ bool TextureManager::Load(std::string id, std::string fileName){
     return true;
 }
 
-void TextureManager::Draw(std::string id, int x, int y, int width, int heigt, SDL_RendererFlip flip){
+void TextureManager::Draw(std::string id, int x, int y, int width, int heigt, float scaleX, float scaleY, float scrollRatio, SDL_RendererFlip flip){
     SDL_Rect srcRect = {0, 0, width, heigt};
-    Vector2D cam = Camera::GetInstance()->GetPosition()*0.5;
-    SDL_Rect dstRect = {static_cast<int>(x - cam.X), static_cast<int>(y - cam.Y), width, heigt};
+    // scrollRatio is used to define the scrolling speed of different textures
+    // With this ratio, we can make sure that the bg can always fit the screen
+    Vector2D cam = Camera::GetInstance()->GetPosition()*scrollRatio;
+    SDL_Rect dstRect = {static_cast<int>(x - cam.X), static_cast<int>(y - cam.Y), static_cast<int>(width*scaleX), static_cast<int>(heigt*scaleY)};
     SDL_RenderCopyEx(Engine::GetInstance()->GetRenderer(), m_TextureMap[id], &srcRect, &dstRect, 0, nullptr, flip);
 }
 
@@ -43,6 +46,28 @@ void TextureManager::DrawTile(std::string tilesetID, int tileSize, int x, int y,
     Vector2D cam = Camera::GetInstance()->GetPosition();
     SDL_Rect dstRect = {static_cast<int>(x - cam.X), static_cast<int>(y - cam.Y), tileSize, tileSize};
     SDL_RenderCopyEx(Engine::GetInstance()->GetRenderer(), m_TextureMap[tilesetID], &srcRect, &dstRect, 0, 0, flip);
+}
+
+bool TextureManager::ParseTextures(std::string source){
+    source = "../../assets" + source;
+    TiXmlDocument xml;
+    xml.LoadFile(source);
+    if(xml.Error()){
+        std::cout << "Failed to load: " << source << std::endl;
+        return false;
+    }
+
+    TiXmlElement* root = xml.RootElement();
+    for(TiXmlElement* e=root->FirstChildElement(); e!= nullptr; e=e->NextSiblingElement()){
+        if(e->Value() == std::string("texture")){
+            std::string id = e->Attribute("id");
+            std::string src = e->Attribute("source");
+            Load(id, src);
+        }
+    }
+
+    std::cout << "Textures Parse success!" << std::endl;
+    return true;
 }
 
 void TextureManager::Drop(std::string id){

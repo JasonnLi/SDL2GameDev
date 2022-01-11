@@ -8,10 +8,10 @@
 #include "../Collision/CollisionHandler.h"
 #include "../Physics/Vector2D.h"
 
-#define JUMP_TIME 35.0f;
-#define JUMP_FORCE 10.0f
+#define JUMP_TIME 30.0f;
+#define JUMP_FORCE 15.0f
 
-#define RUN_FORCE 4.0f
+#define RUN_FORCE 8.0f
 #define ATTACK_TIME 20.0f
 
 class Warrior: public Character{
