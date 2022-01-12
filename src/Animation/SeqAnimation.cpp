@@ -1,6 +1,6 @@
 #include "SeqAnimation.h"
 #include "../Vendor/TinyXML/tinyxml.h"
-#include "iostream"
+#include <iostream>
 #include "../Graphics/TextureManager.h"
 
 SeqAnimation::SeqAnimation(bool repeat):Animation(repeat){}

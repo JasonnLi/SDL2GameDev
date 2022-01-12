@@ -1,7 +1,10 @@
 #include "Enemy.h"
 #include "../Camera/Camera.h"
 #include "../Collision/CollisionHandler.h"
+#include "../Factory/ObjectFactory.h"
 #include <iostream>
+
+static Registrar<Enemy> registrar("BOSS");
 
 Enemy::Enemy(Properties* props): Character(props){
     m_RigiBody = new RigidBody();

@@ -4,6 +4,9 @@
 #include "../Inputs/Input.h"
 #include "../Core/Engine.h"
 #include "../Camera/Camera.h"
+#include "../Factory/ObjectFactory.h"
+
+static Registrar<Warrior> registrar("PLAYER");
 
 Warrior::Warrior(Properties* props): Character(props){
 
