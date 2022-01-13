@@ -8,9 +8,10 @@ void Timer::Tick(){
     // float deltaTime = (SDL_GetTicks() - mTicksCount) / 1000.0f;
     // Update x position by 150 pixels/second, e.g.
     // mPosition.x += 150 * deltaTime;
-    // Calculate number of frames that need to be rendered within a timeframe in millisecs
+    // Calculate number of frames that need to be rendered within a timeframe in seconds
     m_DeltaTime = (SDL_GetTicks() - m_LastTime)*(TARGET_FPS/1000.0f);
 
+    // Target is 60 FPS
     if(m_DeltaTime > TARGET_DELTATIME)
         m_DeltaTime = TARGET_DELTATIME;
 
