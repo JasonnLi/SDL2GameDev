@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<animations>
+
+    <sequence id="mario_idle" frameCount="1" speed="100" width="24" height="32">
+        <frame textureID ="mario_idle"/>
+    </sequence> 
+
+    <sequence id="mario_move" frameCount="3" speed="100" width="24" height="32">
+        <frame textureID ="mario_move0"/>
+        <frame textureID ="mario_move1"/>
+        <frame textureID ="mario_move2"/>
+    </sequence> 
+
+    <sequence id="mario_jump" frameCount="1" speed="100" width="24" height="32">
+        <frame textureID ="mario_jump"/>
+    </sequence>
+
+</animations>

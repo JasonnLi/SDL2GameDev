@@ -5,8 +5,8 @@
 
 SeqAnimation::SeqAnimation(bool repeat):Animation(repeat){}
 
-void SeqAnimation::DrawFrame(float x, float y, float xScale, float yScale, SDL_RendererFlip flip){
-    TextureManager::GetInstance()->Draw(m_CurrentSeq.TextureIDs[m_CurrentFrame], x, y, m_CurrentSeq.Width, m_CurrentSeq.Height, xScale, yScale, flip);
+void SeqAnimation::DrawFrame(float x, float y, float xScale, float yScale, float scrollRatio, SDL_RendererFlip flip){
+    TextureManager::GetInstance()->Draw(m_CurrentSeq.TextureIDs[m_CurrentFrame], x, y, m_CurrentSeq.Width, m_CurrentSeq.Height, xScale, yScale, scrollRatio, flip);
 }
 
 void SeqAnimation::Update(float dt){

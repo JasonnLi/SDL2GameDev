@@ -6,7 +6,7 @@
 #include "../Camera/Camera.h"
 #include "../Factory/ObjectFactory.h"
 
-static Registrar<Warrior> registrar("PLAYER");
+static Registrar<Warrior> registrar("WARRIOR");
 
 Warrior::Warrior(Properties* props): Character(props){
 

@@ -23,6 +23,7 @@ class TextureManager
         TextureManager(){}
         std::map<std::string, SDL_Texture*> m_TextureMap;
         static TextureManager* s_Instance;
+        std::string m_SrcFile;
 };
 
 #endif // TEXTUREMANAGER_H

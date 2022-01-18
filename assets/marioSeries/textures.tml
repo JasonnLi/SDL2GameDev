@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<textures>
+    <texture id="bg" source="/marioSeries/bg/bg.png"/>
+
+    <texture id="mario_idle" source="/marioSeries/mario/mario.bmp"/>
+
+    <texture id="mario_move0" source="/marioSeries/mario/mario_move0.bmp"/>
+    <texture id="mario_move1" source="/marioSeries/mario/mario_move1.bmp"/>
+    <texture id="mario_move2" source="/marioSeries/mario/mario_move2.bmp"/>
+
+    <texture id="mario_jump" source="/marioSeries/mario/mario_jump.bmp"/>
+
+</textures>

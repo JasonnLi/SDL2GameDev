@@ -3,6 +3,7 @@
 #include "../Inputs/Input.h"
 #include "../Characters/Warrior.h"
 #include "../Characters/Enemy.h"
+#include "../Characters/Player.h"
 #include <SDL2/SDL.h>
 #include "../Timer/Timer.h"
 #include "../Map/MapParser.h"
@@ -41,18 +42,15 @@ bool Engine::Init(){
 
     m_LevelMap = MapParser::GetInstance()->GetMap("level1");
 
-    TextureManager::GetInstance()->ParseTextures("/textures.tml");
+    TextureManager::GetInstance()->ParseTextures("/marioSeries/textures.tml");
 
-    // Warrior* player = new Warrior(new Properties("player_idle", 100, 200, 136, 96));
-    // Enemy* boss = new Enemy(new Properties("boss_idle", 820, 240, 460, 352));
-
-    Properties* props = new Properties("player_idle", 100, 200, 136, 96);
+    Properties* props = new Properties("mario_idle", 100, 0, PLAYER_WIDTH, PLAYER_HEIGHT);
 
     GameObject* player = ObjectFactory::GetInstance()->CreateObject("PLAYER", props);
-    Enemy* boss = new Enemy(new Properties("boss_idle", 820, 240, 460, 352));
+    // Enemy* boss = new Enemy(new Properties("boss_idle", 820, 240, 460, 352));
 
     m_GameObjects.push_back(player);
-    m_GameObjects.push_back(boss);
+    // m_GameObjects.push_back(boss);
 
     Camera::GetInstance()->SetTarget(player->GetOrigin());
     return m_IsRunning = true;
@@ -62,7 +60,6 @@ void Engine::Render(){
     SDL_SetRenderDrawColor(m_Renderer, 124, 218, 254, 255);
     SDL_RenderClear(m_Renderer);
 
-    TextureManager::GetInstance()->Draw("bg", 0, 0, 2100, 1050, 1, 1, 0.4);
     m_LevelMap->Render();
 
     for(unsigned int i = 0; i != m_GameObjects.size(); i++)
@@ -73,9 +70,10 @@ void Engine::Render(){
 
 void Engine::Update(){
     float dt = Timer::GetInstance()->GetDeltaTime();
+    Camera::GetInstance()->Update(dt);
     for(unsigned int i = 0; i != m_GameObjects.size(); i++)
         m_GameObjects[i]->Update(dt);
-    Camera::GetInstance()->Update(dt);
+    
     m_LevelMap->Update();
 }
 
