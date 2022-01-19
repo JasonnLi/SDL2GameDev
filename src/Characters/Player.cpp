@@ -78,6 +78,9 @@ void Player::Update(float dt){
     if(CollisionHandler::GetInstance()->MapCollision(m_Collider->Get()))
         m_Transform->X = m_LastSafePosition.X;
 
+    if(Camera::GetInstance()->HitCamViewBox(m_Collider->Get()))
+        m_Transform->X = m_LastSafePosition.X;
+    
     // Y-Axis movements
     m_RigidBody->Update(dt);
     m_LastSafePosition.Y = m_Transform->Y;

@@ -30,3 +30,16 @@ void Camera::Update(float dt){
     }
 }
 
+bool Camera::HitCamViewBox(SDL_Rect rTarget) {
+    float leftBorder = rTarget.x;
+    float rightBorder = rTarget.x + rTarget.w;
+
+    if (leftBorder < m_ViewBox.x) {
+        return true;
+    }
+    if (rightBorder > (m_ViewBox.x + m_ViewBox.w)) {
+        return true;
+    }
+    return false;
+}
+
