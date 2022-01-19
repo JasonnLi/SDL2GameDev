@@ -17,9 +17,9 @@ void Camera::Update(float dt){
             m_ViewBox.y = 0;
         }
 
-        // set the camera to stop when it reach 7 times screen_width
-        if(m_ViewBox.x > (7*SCREEN_WIDTH - m_ViewBox.w)){
-            m_ViewBox.x = (7*SCREEN_WIDTH - m_ViewBox.w);
+        // set the camera to stop when it reach the edge of the screen_width
+        if(m_ViewBox.x > (8.4*SCREEN_WIDTH - m_ViewBox.w)){
+            m_ViewBox.x = (8.4*SCREEN_WIDTH - m_ViewBox.w);
         }
 
         if(m_ViewBox.y > (SCREEN_HEIGHT - m_ViewBox.h)){
@@ -30,7 +30,7 @@ void Camera::Update(float dt){
     }
 }
 
-bool Camera::HitCamViewBox(SDL_Rect rTarget) {
+bool Camera::LeaveCamera(SDL_Rect rTarget) {
     float leftBorder = rTarget.x;
     float rightBorder = rTarget.x + rTarget.w;
 
@@ -40,6 +40,16 @@ bool Camera::HitCamViewBox(SDL_Rect rTarget) {
     if (rightBorder > (m_ViewBox.x + m_ViewBox.w)) {
         return true;
     }
+    return false;
+}
+
+bool Camera::EnterCamera(SDL_Rect rTarget) {
+    float targetLeftBorder = rTarget.x;
+
+    if (targetLeftBorder <= (m_ViewBox.x + m_ViewBox.w)) {
+        return true;
+    }
+
     return false;
 }
 

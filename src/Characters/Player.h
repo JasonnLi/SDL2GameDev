@@ -35,6 +35,7 @@ class Player: public Character {
         bool m_IsJumping;
         bool m_IsFalling;
         bool m_IsGrounded;
+        bool m_IsDead;
 
         float m_JumpTime;
         float m_JumpForce;

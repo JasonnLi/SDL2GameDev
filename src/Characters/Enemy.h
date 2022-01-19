@@ -6,6 +6,8 @@
 #include "../Physics/Collider.h"
 #include "../Animation/SeqAnimation.h"
 
+#define RUN_FORCE 5.0f
+
 class Enemy: public Character {
 
     public:
@@ -16,8 +18,15 @@ class Enemy: public Character {
         virtual void Update(float dt);
 
     private:
+        void AnimationState();
+
+    private:
+        bool m_IsRunning;
+        bool m_IsGrounded;
+        bool m_IsDead;
+
         Collider* m_Collider;
-        RigidBody* m_RigiBody;
+        RigidBody* m_RigidBody;
         SeqAnimation* m_Animation;
         Vector2D m_LastSafePosition;
 };

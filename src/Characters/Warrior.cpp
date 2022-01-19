@@ -157,6 +157,7 @@ void Warrior::AnimationState(){
 }
 
 void Warrior::Clean(){
+    // drop the texture to clean up the program as each texture is a spriteSheet
     TextureManager::GetInstance()->Drop(m_TextureID);
 }
 

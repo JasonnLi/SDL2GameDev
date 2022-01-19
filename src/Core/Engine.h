@@ -6,7 +6,7 @@
 #include "../Map/GameMap.h"
 #include "../Object/GameObject.h"
 
-#define SCREEN_WIDTH 960
+#define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 480
 
 class Engine {

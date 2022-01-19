@@ -44,13 +44,16 @@ bool Engine::Init(){
 
     TextureManager::GetInstance()->ParseTextures("/marioSeries/textures.tml");
 
-    Properties* props = new Properties("mario_idle", 100, 0, PLAYER_WIDTH, PLAYER_HEIGHT);
+    Properties* playerProps = new Properties("mario_idle", 100, 0, PLAYER_WIDTH, PLAYER_HEIGHT);
+    GameObject* player = ObjectFactory::GetInstance()->CreateObject("PLAYER", playerProps);
 
-    GameObject* player = ObjectFactory::GetInstance()->CreateObject("PLAYER", props);
-    // Enemy* boss = new Enemy(new Properties("boss_idle", 820, 240, 460, 352));
+    Properties* enemyProps = new Properties("mushroom_idle", 864, 384, 32, 32);
+    GameObject* mushroom = ObjectFactory::GetInstance()->CreateObject("ENEMY", enemyProps);
+
+    // Enemy* mushroom = new Enemy(new Properties("mushroom_idle", 820, 240, 32, 32));
 
     m_GameObjects.push_back(player);
-    // m_GameObjects.push_back(boss);
+    m_GameObjects.push_back(mushroom);
 
     Camera::GetInstance()->SetTarget(player->GetOrigin());
     return m_IsRunning = true;
@@ -82,9 +85,10 @@ void Engine::Events(){
 }
 
 bool Engine::Clean(){
+    // Clean all game object
     for(unsigned int i = 0; i != m_GameObjects.size(); i++)
         m_GameObjects[i]->Clean();
-
+    // Clear all textures
     TextureManager::GetInstance()->Clean();
     MapParser::GetInstance()->Clean();
     SDL_DestroyRenderer(m_Renderer);

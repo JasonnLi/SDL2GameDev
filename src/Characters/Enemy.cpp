@@ -4,48 +4,75 @@
 #include "../Factory/ObjectFactory.h"
 #include <iostream>
 
-static Registrar<Enemy> registrar("BOSS");
+static Registrar<Enemy> registrar("ENEMY");
 
 Enemy::Enemy(Properties* props): Character(props){
-    m_RigiBody = new RigidBody();
-    m_RigiBody->SetGravity(6.5f);
     m_Collider = new Collider();
+    m_Collider->SetBuffer(2, 2, -5, -2);
+
+    m_RigidBody = new RigidBody();
+    m_RigidBody->SetGravity(9.8f);
 
     m_Animation = new SeqAnimation(false);
-    m_Animation->Parse("/animation.aml");
-    m_Animation->SetCurrentSeq("boss_appear");
+    m_Animation->Parse("/marioSeries/animation.aml");
+    m_Animation->SetCurrentSeq("mushroom_idle");
 }
 
 void Enemy::Draw(){
-    m_Animation->DrawFrame(m_Transform->X, m_Transform->Y, 0.3f, 0.3f, m_Flip);
+    m_Animation->DrawFrame(m_Transform->X, m_Transform->Y, 1, 1, 1, m_Flip);
+    // draw a bounding box for debug purpose
+    Vector2D cam = Camera::GetInstance()->GetPosition();
+    SDL_Rect box = m_Collider->Get();
+    box.x -= cam.X;
+    box.y -= cam.Y;
+    SDL_RenderDrawRect(Engine::GetInstance()->GetRenderer(), &box);
 }
 
 void Enemy::Update(float dt){
 
-    // X-Axis movements
-    m_RigiBody->Update(dt);
-    m_LastSafePosition.X = m_Transform->X;
-    m_Transform->X += m_RigiBody->Position().X;
-    m_Collider->Set(m_Transform->X, m_Transform->Y, 140, 100);
-
-    if(CollisionHandler::GetInstance()->MapCollision(m_Collider->Get()))
-        m_Transform->X = m_LastSafePosition.X;
+    m_RigidBody->UnSetForce();
 
     // Y-Axis movements
-    m_RigiBody->Update(dt);
+    m_RigidBody->Update(dt);
     m_LastSafePosition.Y = m_Transform->Y;
-    m_Transform->Y += m_RigiBody->Position().Y;
-    m_Collider->Set(m_Transform->X, m_Transform->Y, 140, 100);
+    m_Transform->Y += m_RigidBody->Position().Y;
+    m_Collider->Set(m_Transform->X, m_Transform->Y, 32, 32);
 
-    if(CollisionHandler::GetInstance()->MapCollision(m_Collider->Get()))
+    // Run backward once it is grounded
+    if (CollisionHandler::GetInstance()->MapCollision(m_Collider->Get())) {
+        m_IsGrounded = true;
         m_Transform->Y = m_LastSafePosition.Y;
-
-    m_Animation->Update(dt);
-
-    if(m_Animation->IsEnded()){
-        m_Animation->SetCurrentSeq("boss_idle");
-        m_Animation->SetRepeat(true);
+    } else {
+        m_IsGrounded = false;
     }
+
+    if (m_IsGrounded && Camera::GetInstance()->EnterCamera(m_Collider->Get())) {
+        // start X-Axis movements when the character has collision with the camera
+        m_RigidBody->ApplyForceX(BACKWARD*RUN_FORCE);
+    }
+    // X-Axis movements
+    m_RigidBody->Update(dt);
+    m_LastSafePosition.X = m_Transform->X;
+    m_Transform->X += m_RigidBody->Position().X;
+    m_Collider->Set(m_Transform->X, m_Transform->Y, 32, 32);
+
+    m_Origin->X = m_Transform->X + m_Width/2;
+    m_Origin->Y = m_Transform->Y + m_Height/2;
+
+    AnimationState();
+    m_Animation->Update(dt);
+    m_Animation->SetRepeat(true);
+}
+
+void Enemy::AnimationState(){
+    // idling
+    m_Animation->SetCurrentSeq("mushroom_idle");
+
+    // running
+    if(m_IsGrounded)
+        m_Animation->SetCurrentSeq("mushroom_move");
+
+    m_Animation->SetRepeat(true);
 }
 
 

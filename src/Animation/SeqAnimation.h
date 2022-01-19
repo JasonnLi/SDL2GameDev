@@ -25,6 +25,8 @@ class SeqAnimation: public Animation{
         void SetRepeat(bool repeat){m_Repeat = repeat;}
         void DrawFrame(float x, float y, float xScale=1, float yScale=1, float scrollRatio = 0, SDL_RendererFlip flip = SDL_FLIP_NONE);
 
+        void CleanSequence(std::string seqId);
+
     private:
         Sequence m_CurrentSeq;
         std::map<std::string, Sequence> m_SeqMap;

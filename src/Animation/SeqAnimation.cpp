@@ -53,3 +53,7 @@ void SeqAnimation::Parse(std::string source){
         }
     }
 }
+
+void SeqAnimation::CleanSequence(std::string seqId) {
+    
+}

@@ -10,4 +10,9 @@
 
     <texture id="mario_jump" source="/marioSeries/mario/mario_jump.bmp"/>
 
+    <texture id="mushroom_move_0" source="/marioSeries/enemy/mushroom_move_0.bmp"/>
+    <texture id="mushroom_move_1" source="/marioSeries/enemy/mushroom_move_1.bmp"/>
+
+    <texture id="mushroom_dead" source="/marioSeries/enemy/mushroom_dead.bmp"/>
+
 </textures>

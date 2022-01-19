@@ -11,7 +11,8 @@ class Camera {
     public:
 
         void Update(float dt);
-        bool HitCamViewBox(SDL_Rect rTarget);
+        bool LeaveCamera(SDL_Rect rTarget);
+        bool EnterCamera(SDL_Rect rTarget);
         inline SDL_Rect GetViewBox(){return m_ViewBox;}
         inline Vector2D GetPosition(){return m_Position;}
         inline void SetTarget(Point* target){m_Target = target;}
