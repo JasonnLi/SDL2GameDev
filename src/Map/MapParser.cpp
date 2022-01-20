@@ -1,12 +1,15 @@
 #include "MapParser.h"
+#include "../Factory/ObjectFactory.h"
+#include "../Camera/Camera.h"
 
 MapParser* MapParser::s_Instance = nullptr;
 
+// @TODO load all levels of maps
 bool MapParser::Load(){
-    return Parse("level1", "../../assets/maps/map_lv11.tmx");
+    return Parse(level1, "../../assets/maps/map_lv11.tmx");
 }
 
-bool MapParser::Parse(std::string id, std::string source){
+bool MapParser::Parse(EMapLevel id, std::string source){
 
     TiXmlDocument xml;
     xml.LoadFile(source);
@@ -30,17 +33,34 @@ bool MapParser::Parse(std::string id, std::string source){
         }
     }
 
+    GameMap* gameMap = createGameMap(level1);
     // Parse Layers
-    GameMap* gamemap = new GameMap();
     for(TiXmlElement* e=root->FirstChildElement(); e!= nullptr; e=e->NextSiblingElement()){
         if(e->Value() == std::string("layer")){
             TileLayer* tilelayer = ParseTileLayer(e, tilesets, tilesize, rowcount, colcount);
-            gamemap->m_MapLayers.push_back(tilelayer);
+            gameMap->m_MapLayers.push_back(tilelayer);
         }
     }
 
-    m_MapDict[id] = gamemap;
+    m_MapDict[id] = gameMap;
     return true;
+}
+
+GameMap* MapParser::createGameMap(EMapLevel id) {
+    GameMap* gameMap = new GameMap();
+    GameObject* player = ObjectFactory::GetInstance()->CreateObject("PLAYER", new Properties("mario_idle", 100, 0, 24, 32));
+    Camera::GetInstance()->SetTarget(player->GetOrigin());
+    gameMap->addGameObject(player);
+    switch (id)
+    {
+        case level1:
+            GameObject* mushroom_0 = ObjectFactory::GetInstance()->CreateObject("ENEMY", new Properties("mushroom_idle", 864, 384, 32, 32));
+            GameObject* mushroom_1 = ObjectFactory::GetInstance()->CreateObject("ENEMY", new Properties("mushroom_idle", 3680, 384, 32, 32));
+            gameMap->addGameObject(mushroom_0);
+            gameMap->addGameObject(mushroom_1);
+            break;
+    }
+    return gameMap;
 }
 
 TileLayer* MapParser::ParseTileLayer(TiXmlElement* xmlLayer, TilesetsList tilesets, int tilesize, int rowcount, int colcount){
@@ -90,7 +110,7 @@ Tileset MapParser::ParseTileset(TiXmlElement* xmlTileset){
 }
 
 void MapParser::Clean(){
-    std::map<std::string, GameMap*>::iterator it;
+    std::map<EMapLevel, GameMap*>::iterator it;
     for(it = m_MapDict.begin(); it != m_MapDict.end(); it++)
         it->second = nullptr;
 

@@ -36,8 +36,6 @@ class Engine {
         SDL_Window* m_Window;
         SDL_Renderer* m_Renderer;
         static Engine* s_Instance;
-
-        std::vector<GameObject*> m_GameObjects;
 };
 
 #endif // ENGINE_H

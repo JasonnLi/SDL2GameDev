@@ -18,7 +18,7 @@ Player::Player(Properties* props): Character(props){
     m_RigidBody->SetGravity(9.8f);
 
     m_Animation = new SeqAnimation(false);
-    m_Animation->Parse("/marioSeries/animation.aml");
+    m_Animation->Parse("/marioSeries/marioAnimation.aml");
     m_Animation->SetCurrentSeq("mario_idle");
 }
 

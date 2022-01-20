@@ -40,22 +40,10 @@ bool Engine::Init(){
         return false;
     }
 
-    m_LevelMap = MapParser::GetInstance()->GetMap("level1");
+    m_LevelMap = MapParser::GetInstance()->GetMap(level1);
 
     TextureManager::GetInstance()->ParseTextures("/marioSeries/textures.tml");
 
-    Properties* playerProps = new Properties("mario_idle", 100, 0, PLAYER_WIDTH, PLAYER_HEIGHT);
-    GameObject* player = ObjectFactory::GetInstance()->CreateObject("PLAYER", playerProps);
-
-    Properties* enemyProps = new Properties("mushroom_idle", 864, 384, 32, 32);
-    GameObject* mushroom = ObjectFactory::GetInstance()->CreateObject("ENEMY", enemyProps);
-
-    // Enemy* mushroom = new Enemy(new Properties("mushroom_idle", 820, 240, 32, 32));
-
-    m_GameObjects.push_back(player);
-    m_GameObjects.push_back(mushroom);
-
-    Camera::GetInstance()->SetTarget(player->GetOrigin());
     return m_IsRunning = true;
 }
 
@@ -65,8 +53,8 @@ void Engine::Render(){
 
     m_LevelMap->Render();
 
-    for(unsigned int i = 0; i != m_GameObjects.size(); i++)
-        m_GameObjects[i]->Draw();
+    for(unsigned int i = 0; i != m_LevelMap->GetMapObjects().size(); i++)
+         m_LevelMap->GetMapObjects()[i]->Draw();
 
     SDL_RenderPresent(m_Renderer);
 }
@@ -74,8 +62,8 @@ void Engine::Render(){
 void Engine::Update(){
     float dt = Timer::GetInstance()->GetDeltaTime();
     Camera::GetInstance()->Update(dt);
-    for(unsigned int i = 0; i != m_GameObjects.size(); i++)
-        m_GameObjects[i]->Update(dt);
+    for(unsigned int i = 0; i != m_LevelMap->GetMapObjects().size(); i++)
+        m_LevelMap->GetMapObjects()[i]->Update(dt);
     
     m_LevelMap->Update();
 }
@@ -86,8 +74,8 @@ void Engine::Events(){
 
 bool Engine::Clean(){
     // Clean all game object
-    for(unsigned int i = 0; i != m_GameObjects.size(); i++)
-        m_GameObjects[i]->Clean();
+    for(unsigned int i = 0; i != m_LevelMap->GetMapObjects().size(); i++)
+        m_LevelMap->GetMapObjects()[i]->Clean();
     // Clear all textures
     TextureManager::GetInstance()->Clean();
     MapParser::GetInstance()->Clean();

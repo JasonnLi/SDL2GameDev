@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<animations>
+
+    <sequence id="mushroom_idle" frameCount="1" speed="100" width="32" height="32">
+        <frame textureID ="mushroom_move_0"/>
+    </sequence>
+
+    <sequence id="mushroom_move" frameCount="2" speed="100" width="32" height="32">
+        <frame textureID ="mushroom_move_0"/>
+        <frame textureID ="mushroom_move_1"/>
+    </sequence>
+
+    <sequence id="mushroom_dead" frameCount="1" speed="100" width="32" height="32">
+        <frame textureID ="mushroom_dead"/>
+    </sequence>
+
+</animations>
