@@ -18,6 +18,7 @@
 #define PLAYER_WIDTH 24
 #define PLAYER_HEIGHT 32
 
+//@TODO handle game object drop out of the screen
 class Player: public Character {
 
     public:
